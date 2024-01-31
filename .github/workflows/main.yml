@@ -16,7 +16,7 @@ jobs:
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
-        role-to-assume: arn:aws:iam::064195113262:oidc-provider/token.actions.githubusercontent.com 
+        role-to-assume: arn:aws:iam::064195113262:role/git2s3bucket
         aws-region: us-east-1  # Example: us-east-1
 
     - name: Sync files to S3

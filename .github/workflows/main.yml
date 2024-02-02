@@ -4,20 +4,27 @@ on:
   push:
     branches:
       - master  # Specify the branch here
+env:
+  BUCKET_NAME : "standil1"
+  AWS_REGION : "il-central-1"
+  
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
-    - name: Configure AWS credentials
+    - name: configure aws credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
-        role-to-assume: arn:aws:iam::064195113262:role/git2s3bucket
-        aws-region: us-east-1  # Example: us-east-1
+        role-to-assume: arn:aws:iam::064195113262:role/github-actions-role
+        role-session-name: GitHub-Action-Role
+        aws-region: ${{ env.AWS_REGION }}1
 
     - name: Sync files to S3
       run: |

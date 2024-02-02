@@ -5,39 +5,32 @@ on:
     branches:
       - master  # Specify the branch here
 env:
-  BUCKET_NAME : "standil1"
-  AWS_REGION : "il-central-1"
+  BUCKET_NAME: "standil1"
+  AWS_REGION: "il-central-1"
   GITHUB_REF: "master"
   
 jobs:
   deploy:
     runs-on: ubuntu-latest
     permissions:
-     id-token: write
-     contents: read
+      id-token: write
+      contents: read
 
     steps:
     - uses: actions/checkout@v3
 
-    - name: configure aws credentials
+    - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
         role-to-assume: arn:aws:iam::064195113262:role/github-actions-role
         role-session-name: GitHub-Action-Role
         aws-region: ${{ env.AWS_REGION }}
-    - name: Extract branch name
-      shell: bash
-      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-      id: extract_branch
-    - name: Extract commit hash
-      shell: bash
-      run: echo "##[set-output name=commit_hash;]$(echo "$GITHUB_SHA")"
-      id: extract_hash 
 
     - name: Sync repository to S3
       run: |
         aws s3 sync . s3://${{ env.BUCKET_NAME }} --exclude "node_modules/**" --exclude ".git/**" --exclude "dist/**" --exclude ".github/**" --exclude "README.md"
       env:
         AWS_REGION: ${{ env.AWS_REGION }}
+
 
  

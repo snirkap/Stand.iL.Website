@@ -36,7 +36,7 @@ jobs:
 
     - name: Sync repository to S3
       run: |
-        aws s3 sync . s3://${{ env.BUCKET_NAME }}/${{ env.BRANCH_NAME }}/latest --exclude "node_modules/**" --exclude ".git/**" --exclude "dist/**"
+        aws s3 sync . s3://${{ env.BUCKET_NAME }} --exclude "node_modules/**" --exclude ".git/**" --exclude "dist/**"
       env:
         AWS_REGION: ${{ env.AWS_REGION }}
 

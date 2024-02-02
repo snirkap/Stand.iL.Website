@@ -24,8 +24,17 @@ jobs:
       with:
         role-to-assume: arn:aws:iam::064195113262:role/github-actions-role
         role-session-name: GitHub-Action-Role
-        aws-region: ${{ env.AWS_REGION }}1
+        aws-region: ${{ env.AWS_REGION }}
+    - name: Extract branch name
+      shell: bash
+      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      id: extract_branch
+    - name: Extract commit hash
+      shell: bash
+      run: echo "##[set-output name=commit_hash;]$(echo "$GITHUB_SHA")"
+      id: extract_hash 
 
-    - name: Sync files to S3
+    - name:  Copy build to S3
       run: |
-        aws s3 sync . s3://standil1 --exclude '.git/*' --exclude '.github/*'
+          zip -r ./artifacts/project.zip . -x node_modules/**\* .git/**\* dist/**\* dist/**\*          
+          aws s3 sync  ${GITHUB_WORKSPACE}/artifacts s3://${{ env.BUCKET_NAME }}/${{ steps.extract_branch.outputs.branch }}/latest

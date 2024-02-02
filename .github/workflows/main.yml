@@ -7,14 +7,14 @@ on:
 env:
   BUCKET_NAME : "standil1"
   AWS_REGION : "il-central-1"
+  GITHUB_REF: "master"
   
-permissions:
-  id-token: write
-  contents: read
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+     id-token: write
+     contents: read
 
     steps:
     - uses: actions/checkout@v3
@@ -36,5 +36,5 @@ jobs:
 
     - name:  Copy build to S3
       run: |
-          zip -r  . -x node_modules/**\* .git/**\* dist/**\* dist/**\*          
+          zip -r ./artifacts/project.zip . -x node_modules/**\* .git/**\* dist/**\* dist/**\*          
           aws s3 sync  ${GITHUB_WORKSPACE}/artifacts s3://${{ env.BUCKET_NAME }}/${{ steps.extract_branch.outputs.branch }}/latest

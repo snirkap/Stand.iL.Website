@@ -5,8 +5,8 @@ on:
     branches:
       - master  # Specify the branch here
 env:
-  BUCKET_NAME: "standil1"
-  AWS_REGION: "il-central-1"
+  BUCKET_NAME: "tftests3"
+  AWS_REGION: "us-east-1"
   GITHUB_REF: "master"
   
 jobs:

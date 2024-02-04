@@ -5,7 +5,7 @@ on:
     branches:
       - master  # Specify the branch here
 env:
-  BUCKET_NAME: "tftests3"
+  BUCKET_NAME: "standiltf"
   AWS_REGION: "us-east-1"
   GITHUB_REF: "master"
   

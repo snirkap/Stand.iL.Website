@@ -1,4 +1,4 @@
-# Stand.iL.Website
+  ;# Stand.iL.Website
 Welcome to the repository for the stand.iL website. The website is hosted on AWS, utilizing S3 for storage, CloudFront for content delivery, and Route 53 for DNS management. The infrastructure is codified using Terraform, ensuring infrastructure as code practices. Additionally, a CI/CD pipeline is implemented using GitHub Actions to automate the deployment process.
 
 ## Architecture Overview:
@@ -17,13 +17,13 @@ Before you can deploy this project, you'll need:
 * awscli installed on your local machine
 
 ## Setup and Deployment:
-1. Clone the Repository
+### Clone the Repository
 First, clone this repository to your local machine to get started with the project.
 ```
 git clone https://github.com/snirkap/Stand.iL.Website.git
 cd Stand.iL.Website
 ```
-2. Terraform Initialization and Application
+### Terraform Initialization and Application
 Navigate to the Terraform directory within the cloned repository and run the following command to initialize Terraform, allowing it to download necessary providers and modules.
 and change this variables:
 * s3_bucket_name
@@ -36,5 +36,5 @@ cd tf
 terraform init
 terraform apply
 ```
-3. CI/CD Pipeline
+### CI/CD Pipeline
 The CI/CD pipeline, defined in .github/workflows/main.yml, automates updates. It triggers on changes to HTML files or the images directory, updating the S3 bucket and invalidating CloudFront's cache to ensure the latest version of the site is available.

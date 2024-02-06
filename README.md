@@ -14,3 +14,27 @@ Before you can deploy this project, you'll need:
 * AWS Account with access to S3, CloudFront, and Route 53
 * Terraform installed on your local machine
 * Git installed on your local machine
+* awscli installed on your local machine
+
+## Setup and Deployment:
+1. Clone the Repository
+First, clone this repository to your local machine to get started with the project.
+```
+git clone https://github.com/snirkap/Stand.iL.Website.git
+cd Stand.iL.Website
+```
+2. Terraform Initialization and Application
+Navigate to the Terraform directory within the cloned repository and run the following command to initialize Terraform, allowing it to download necessary providers and modules.
+and change this variables:
+* s3_bucket_name
+* aws_cloudfront_distribution_aliases
+* aws_cloudfront_distribution_acm_certificate_arn
+* aws_route53_record_zone_id
+* aws_route53_record_name
+```
+cd tf
+terraform init
+terraform apply
+```
+3. CI/CD Pipeline
+The CI/CD pipeline, defined in .github/workflows/main.yml, automates updates. It triggers on changes to HTML files or the images directory, updating the S3 bucket and invalidating CloudFront's cache to ensure the latest version of the site is available.

@@ -5,7 +5,7 @@ on:
     branches:
       - master  # Specify the branch here
 env:
-  BUCKET_NAME: "${{ vars.BUCKET_NAME }}"
+  BUCKET_NAME: "${{ secrets.BUCKET_NAME }}"
   AWS_REGION: "${{ vars.AWS_REGION }}"
   GITHUB_REF: "master"
   

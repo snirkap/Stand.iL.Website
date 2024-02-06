@@ -1,4 +1,4 @@
-  ;# Stand.iL.Website
+# Stand.iL.Website
 Welcome to the repository for the stand.iL website. The website is hosted on AWS, utilizing S3 for storage, CloudFront for content delivery, and Route 53 for DNS management. The infrastructure is codified using Terraform, ensuring infrastructure as code practices. Additionally, a CI/CD pipeline is implemented using GitHub Actions to automate the deployment process.
 
 ## Architecture Overview:

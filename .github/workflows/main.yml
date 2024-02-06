@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - master  # Specify the branch here
+    paths:
+      - '**/*.html'      # Trigger the workflow for any .html files changes
+      - 'images/**'      # Trigger the workflow for any changes in the images directory
 env:
   BUCKET_NAME: "${{ secrets.BUCKET_NAME }}"
   AWS_REGION: "${{ vars.AWS_REGION }}"

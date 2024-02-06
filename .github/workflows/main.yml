@@ -11,7 +11,7 @@ env:
   BUCKET_NAME: "${{ secrets.BUCKET_NAME }}"
   AWS_REGION: "${{ vars.AWS_REGION }}"
   GITHUB_REF: "master"
-  CLOUDFRONT_DISTRIBUTION_ID: "${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}"  # Add your CloudFront distribution ID as a secret
+  CLOUDFRONT_DISTRIBUTION_ID: "${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}"  
   
 jobs:
   deploy:

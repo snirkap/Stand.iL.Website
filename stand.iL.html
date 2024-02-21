@@ -183,7 +183,51 @@
         border-radius: 8px;
         padding: 5px;
         box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
-        }   
+        }
+        .form-container {
+            width: 80%;
+            max-width: 440px;
+            margin: 30px auto;
+            background-color: #028477;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            font-size: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"] {
+            width: 75%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ffffff;
+            border-radius: 5px;
+        }
+
+        button[type="submit"] {
+            background-color: #028477;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #025c54;
+        }
+          
     </style>
 </head>
 <body>
@@ -264,7 +308,67 @@
             <a href="https://wa.me/message/222BIK3RC2C4N1" class="whatsapp-link" target="_blank">
                 <img src="images/whatsapp-white-icon.webp" alt="WhatsApp" style="vertical-align: middle; margin-right: 8px;">שלחו לנו הודעה בווצאפ 
             </a>
+            <div class="form-container">
+                <h2>השאירו פרטים כאן</h2>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">:שם מלא</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phoneNumber">:מספר טלפון</label>
+                        <input type="text" id="phoneNumber" name="phoneNumber" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit">! אני רוצה לשמוע עוד פרטים</button>
+                    </div>
+                </form>
+                <div id="message"></div>
+            </div>
+            
+            
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    const contactForm = document.getElementById("contactForm");
+                    const messageDiv = document.getElementById("message");
+            
+                    contactForm.addEventListener("submit", function(event) {
+                        event.preventDefault();
+            
+                        const formData = new FormData(contactForm);
+                        const requestData = {};
+            
+                        formData.forEach((value, key) => {
+                            requestData[key] = value;
+                        });
+            
+                        // Stringify the data and structure it as expected
+                        const requestBody = JSON.stringify({ body: JSON.stringify(requestData) });
+            
+                        fetch('https://fk38j7ia5d.execute-api.us-east-1.amazonaws.com/dev/lambda', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: requestBody,
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log('Success:', data);
+                            messageDiv.textContent = '! הפרטים נשלחו בהצלחה';
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            messageDiv.textContent = 'An error occurred. Please try again later.';
+                        });
+                    });
+                });
+            </script>
 
 </body>
 </html>
-           

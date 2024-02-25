@@ -245,6 +245,24 @@
         <a style="float: right;" href="stand.iL.html">עמוד הבית</a>
         <a style="float: right;" href="gallery.html">גלריה</a>
         <a href="assembly.html">? איך מרכיבים</a>
+        <script>
+            function trackButtonClick() {
+                // Send a request to your API Gateway endpoint when the button is clicked
+                fetch('https://fk38j7ia5d.execute-api.us-east-1.amazonaws.com/dev', {
+                    method: 'POST',
+                    // Add any necessary headers or body data if required
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    console.log('Button click tracked successfully');
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+        </script>
     </div>
     <div class="header">
         <img src="images/logo.png" alt="Stand iL Logo" class="logo" >

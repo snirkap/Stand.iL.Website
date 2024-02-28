@@ -248,40 +248,52 @@
     </div>
 
     <script>
-        document.getElementById("homeButton").addEventListener("click", function(event) {
-            event.preventDefault(); 
-            trackButtonClick('Home');
-            window.location.href = "stand.iL.html"; 
+        document.addEventListener("DOMContentLoaded", function() {
+            const messageDiv = document.getElementById("message");
+    
+            document.getElementById("homeButton").addEventListener("click", function(event) {
+                event.preventDefault();
+                trackButtonClick('Home');
+                window.location.href = "stand.iL.html";
+            });
+    
+            document.getElementById("galleryButton").addEventListener("click", function(event) {
+                event.preventDefault();
+                trackButtonClick('Gallery');
+            });
+    
+            document.getElementById("assemblyButton").addEventListener("click", function(event) {
+                event.preventDefault();
+                trackButtonClick('Assemble');
+                window.location.href = "assembly.html";
+            });
+    
+            function trackButtonClick(buttonName) {
+                const requestData = { "button_name": buttonName };
+    
+                fetch('https://fk38j7ia5d.execute-api.us-east-1.amazonaws.com/dev/metric_lambda', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(requestData),
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Success:', data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
         });
-
-        document.getElementById("galleryButton").addEventListener("click", function(event) {
-            event.preventDefault(); 
-            trackButtonClick('Gallery');
-        });
-
-        document.getElementById("assemblyButton").addEventListener("click", function(event) {
-            event.preventDefault(); 
-            trackButtonClick('Assemble');
-            window.location.href = "assembly.html"; 
-        });
-
-        function trackButtonClick(buttonName) {
-            var xhr = new XMLHttpRequest();
-            var url = 'https://fk38j7ia5d.execute-api.us-east-1.amazonaws.com/dev/metric_lambda'; 
-
-            xhr.open("POST", url, true);
-            xhr.setRequestHeader("Content-Type", "application/json");
-
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    console.log("Button click tracked successfully");
-                }
-            };
-
-            var data = JSON.stringify({"button_name": buttonName});
-            xhr.send(data);
-        }
     </script>
+    
     </div>
     <div class="header">
         <img src="images/logo.png" alt="Stand iL Logo" class="logo" >

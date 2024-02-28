@@ -242,27 +242,27 @@
 </head>
 <body>
     <div class="navbar">
-        <a style="float: right;" href="stand.iL.html" onclick="trackButtonClick('Home')">עמוד הבית</a>
-        <a style="float: right;" href="gallery.html" onclick="trackButtonClick('Gallery')">גלריה</a>
-        <a href="assembly.html" onclick="trackButtonClick('How to Assemble')">? איך מרכיבים</a>
+        <a id="homeButton" style="float: right;" href="stand.iL.html" onclick="trackButtonClick('Home')">עמוד הבית</a>
+        <a id="galleryButton" style="float: right;" href="gallery.html" onclick="trackButtonClick('Gallery')">גלריה</a>
+        <a id="assemblyButton" href="assembly.html" onclick="trackButtonClick('Assemble')">? איך מרכיבים</a>
     </div>
+
     <script>
         function trackButtonClick(buttonName) {
-            // Send a request to your API Gateway endpoint when the button is clicked
-            fetch('https://fk38j7ia5d.execute-api.us-east-1.amazonaws.com/dev/metric_lambda', {
-                method: 'POST',
-                // Add any necessary headers or body data if required
-                body: JSON.stringify({ button: buttonName }) // Include button name in the request body
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
+            var xhr = new XMLHttpRequest();
+            var url = 'https://fk38j7ia5d.execute-api.us-east-1.amazonaws.com/dev/metric_lambda'; 
+
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    console.log("Button click tracked successfully");
                 }
-                console.log('Button click tracked successfully');
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+            };
+
+            var data = JSON.stringify({"button_name": buttonName});
+            xhr.send(data);
         }
     </script>
     </div>

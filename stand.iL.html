@@ -242,12 +242,30 @@
 </head>
 <body>
     <div class="navbar">
-        <a id="homeButton" style="float: right;" href="stand.iL.html" onclick="trackButtonClick('Home')">עמוד הבית</a>
-        <a id="galleryButton" style="float: right;" href="gallery.html" onclick="trackButtonClick('Gallery')">גלריה</a>
-        <a id="assemblyButton" href="assembly.html" onclick="trackButtonClick('Assemble')">? איך מרכיבים</a>
+        <a id="homeButton" style="float: right; cursor: pointer;" onclick="trackButtonClick('Home')">עמוד הבית</a>
+        <a id="galleryButton" style="float: right; cursor: pointer;" onclick="trackButtonClick('Gallery')">גלריה</a>
+        <a id="assemblyButton" style="cursor: pointer;" onclick="trackButtonClick('Assemble')">? איך מרכיבים</a>
     </div>
 
     <script>
+        document.getElementById("homeButton").addEventListener("click", function(event) {
+            event.preventDefault(); 
+            trackButtonClick('Home');
+            window.location.href = "stand.iL.html"; 
+        });
+
+        document.getElementById("galleryButton").addEventListener("click", function(event) {
+            event.preventDefault(); 
+            trackButtonClick('Gallery');
+            window.location.href = "gallery.html"; 
+        });
+
+        document.getElementById("assemblyButton").addEventListener("click", function(event) {
+            event.preventDefault(); 
+            trackButtonClick('Assemble');
+            window.location.href = "assembly.html"; 
+        });
+
         function trackButtonClick(buttonName) {
             var xhr = new XMLHttpRequest();
             var url = 'https://fk38j7ia5d.execute-api.us-east-1.amazonaws.com/dev/metric_lambda'; 

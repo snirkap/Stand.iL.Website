@@ -250,7 +250,27 @@
     <script>
         function trackButtonClick(buttonName) {
             const requestData = { "button_name": buttonName };
-    
+            
+            let targetUrl;
+            // Determine the target URL based on the button clicked
+            switch (buttonName) {
+                case 'Home':
+                    targetUrl = 'stand.iL.html';
+                    break;
+                case 'Gallery':
+                    targetUrl = 'gallery.html';
+                    break;
+                case 'Assemble':
+                    targetUrl = 'assembly.html';
+                    break;
+                default:
+                    targetUrl = 'default.html'; // Default URL if buttonName does not match any case
+            }
+            
+            // Redirect to the appropriate HTML page
+            window.location.href = targetUrl;
+            
+            // Send POST request if needed
             fetch('https://fk38j7ia5d.execute-api.us-east-1.amazonaws.com/dev/metric_lambda', {
                 method: 'POST',
                 headers: {
@@ -272,6 +292,7 @@
             });
         }
     </script>
+    
     
     
     </div>
